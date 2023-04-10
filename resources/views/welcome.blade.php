@@ -22,14 +22,11 @@
 <div class="card-body">
     <div class="row">
         <div class="col-md-12">
-        <form action="" method="POST">
+        <form action="{{ route('todo.submit') }}" method="POST">
         @csrf
             <div class="input-group">
-                
-                  
-                <input type="text" name="" class="form-control" id="" placeholder="Task">
+                <input type="text" name="task" class="form-control" id="" placeholder="Task">
                 <button class="btn btn-primary">Add</button>
-
             </div>
             </form>
         </div>
@@ -42,10 +39,16 @@
     </tr>
                 </thead>
 <tbody>
+    @if($task)
+    @foreach($task as $todos)
     <tr>
-        <td></td>
-        <td></td>
+        <td>{{ $todos->todo }}</td>
+        <td><a href="{{ route('delete.task', $todos->id) }}">delete</a></td>
     </tr>
+    @endforeach
+    @else
+    no Task
+    @endif
 </tbody>
             </table>
         </div>

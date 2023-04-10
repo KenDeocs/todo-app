@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Todo;
+use Carbon\Carbon;
 class TodoController extends Controller
 {
     /**
@@ -11,7 +12,8 @@ class TodoController extends Controller
      */
     public function index()
     {
-        //
+        $task = Todo::all();
+        return view('welcome', compact('task'));
     }
 
     /**
@@ -27,7 +29,17 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'task' => 'required'
+        ]);
+
+        Todo::insert([
+            'todo' => $request->task,
+            'status' => 0,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        return redirect('/');
     }
 
     /**
@@ -59,6 +71,8 @@ class TodoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $detroy= Todo::findOrFail($id)->delete();
+
+    return redirect('/');
     }
 }

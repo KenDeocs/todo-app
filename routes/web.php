@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\TodoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [TodoController::class, 'index']);
+
+Route::post('/submit-todo', [TodoController::class, 'store'])->name('todo.submit');
+
+Route::get('/delete-task/{id}', [TodoController::class, 'destroy'])->name('delete.task');
