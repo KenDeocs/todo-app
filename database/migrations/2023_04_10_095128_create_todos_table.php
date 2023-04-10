@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('todos', function (Blueprint $table) {
             $table->id();
+            $table->string('todo');
+            //0=pending 1=ongoing 2=complete
+            $table->integer('status');
             $table->timestamps();
         });
     }
